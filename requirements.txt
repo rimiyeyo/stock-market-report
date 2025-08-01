@@ -1,5 +1,5 @@
+ddgs==9.5.0
+openai==1.97.1
 pytest==8.4.1
-yfinance
-ddgs
-pydantic-settings
-openai
+pydantic-settings==2.10.1
+yfinance==0.2.65
