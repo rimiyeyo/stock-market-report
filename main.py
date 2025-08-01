@@ -34,8 +34,6 @@ def get_picker_code(llm_client: OpenAI, query: str) -> str:
 
 def get_web_search_result_from_query(query: str) -> str:
     results = DDGS().text(query, max_results=5)
-    # print(type(results))
-    # print(results)
     return results[0]["body"] if results else "No results found"
 
 
