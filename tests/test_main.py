@@ -141,6 +141,10 @@ def test_test_scenario() -> None:
     ) as mock_get_summary:
 
         mock_llm_client = MagicMock(spec=OpenAI)
+        mock_response = MagicMock()
+        mock_response.choices[0].message.content = "Mocked Result"
+        mock_llm_client.chat.completions.create.return_value = mock_response
+
         mock_get_openai_client.return_value = mock_llm_client
         mock_get_web_search_keyword.return_value = "엔비디아 최신 뉴스 정보"
         mock_get_web_search_result.return_value = "Mocked web result"
