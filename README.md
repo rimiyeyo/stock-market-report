@@ -1,7 +1,7 @@
 <h1 align="center">stock-market-report</h1>
 
 <p align="center">A project that generates a stock market report by calling LLM APIs.</p>
-<p align="center"><a href="https://github.com/rimiyeyo/stock-market-report/actions/workflows/ci.yml/badge.svg" target="_blank"><img alt="Python CI" src="https://github.com/rimiyeyo/stock-market-report/actions/workflows/ci.yml/badge.svg"/></a></p>
+<p align="center"><a href="https://github.com/rimiyeyo/stock-market-report/actions/workflows/ci.yaml/badge.svg" target="_blank"><img alt="Python CI" src="https://github.com/rimiyeyo/stock-market-report/actions/workflows/ci.yaml/badge.svg"/></a></p>
 
 ## Overview
 
