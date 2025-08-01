@@ -12,6 +12,7 @@ from main import (
     get_openai_api_key,
     get_web_search_keyword_from_user_query,
     print_summary,
+    test_scenario,
 )
 from settings.settings import settings
 
@@ -124,3 +125,38 @@ def test_print_summary(capfd) -> None:
     captured = capfd.readouterr()
     assert captured.out == f"Summary: {summary}\n"
     assert captured.err == ""
+
+
+def test_test_scenario() -> None:
+    with patch("main.get_openai_client") as mock_get_openai_client, patch(
+        "main.get_web_search_keyword_from_user_query"
+    ) as mock_get_web_search_keyword, patch(
+        "main.get_web_search_result_from_query"
+    ) as mock_get_web_search_result, patch(
+        "main.get_picker_code"
+    ) as mock_get_picker_code, patch(
+        "main.get_stock_info_from_picker"
+    ) as mock_get_stock_info_from_picker, patch(
+        "main.get_summary_from_web_result_with_stock_info"
+    ) as mock_get_summary:
+
+        mock_llm_client = MagicMock(spec=OpenAI)
+        mock_get_openai_client.return_value = mock_llm_client
+        mock_get_web_search_keyword.return_value = "엔비디아 최신 뉴스 정보"
+        mock_get_web_search_result.return_value = "Mocked web result"
+        mock_get_picker_code.return_value = "NVDA"
+        mock_get_stock_info_from_picker.return_value = "Mocked stock info"
+        mock_get_summary.return_value = "Mocked summary"
+
+        test_scenario()
+
+        mock_get_openai_client.assert_called_once()
+        mock_get_web_search_keyword.assert_called_once_with(
+            mock_llm_client, "엔비디아 주가"
+        )
+        mock_get_web_search_result.assert_called_once_with("엔비디아 최신 뉴스 정보")
+        mock_get_picker_code.assert_called_once_with(mock_llm_client, "엔비디아 주가")
+        mock_get_stock_info_from_picker.assert_called_once_with("NVDA")
+        mock_get_summary.assert_called_once_with(
+            mock_llm_client, "Mocked web result", "Mocked stock info"
+        )
